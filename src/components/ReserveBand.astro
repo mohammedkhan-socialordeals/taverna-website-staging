@@ -1,6 +1,6 @@
 ---
 // The closing "book a table" band used at the bottom of every page.
-import { site } from '../data/site';
+import { site, link } from '../data/site';
 ---
 
 <section class="band section section--oxblood">
@@ -14,7 +14,7 @@ import { site } from '../data/site';
     <div class="btn-row">
       <a class="btn btn--solid" href={site.links.reserve} target="_blank" rel="noopener">Reserve a table</a>
       <a class="btn" href={site.links.order} target="_blank" rel="noopener">Order takeout</a>
-      <a class="btn" href="/private-dining/">Private dining</a>
+      <a class="btn" href={link('/private-dining/')}>Private dining</a>
     </div>
   </div>
 </section>

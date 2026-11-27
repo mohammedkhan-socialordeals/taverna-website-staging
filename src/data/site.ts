@@ -3,6 +3,12 @@
 //  Edit hours, links, phone and address here; every page updates.
 // ─────────────────────────────────────────────────────────────
 
+// Prefixes internal links with the folder the site is served from.
+// At the root of a domain this changes nothing; on GitHub Pages the site
+// lives in a sub-folder, and this keeps every link working there.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+export const link = (path: string) => `${base}${path}`;
+
 export const site = {
   name: 'Taverna',
   fullName: 'Taverna Italian Kitchen + Bar',
@@ -34,7 +40,7 @@ export const site = {
     tripadvisor:
       'https://www.tripadvisor.ca/Restaurant_Review-g155043-d3666941-Reviews-Taverna_Italian_Kitchen-Saskatoon_Saskatchewan.html',
     maps: 'https://www.google.com/maps/search/?api=1&query=Taverna+Italian+Kitchen+219+21st+St+E+Saskatoon',
-    menuPdf: '/menus/taverna-menu.pdf',
+    menuPdf: link('/menus/taverna-menu.pdf'),
   },
 
   openTableId: '117244',
@@ -52,9 +58,9 @@ export const site = {
 };
 
 export const nav = [
-  { label: 'Menus', href: '/menu/' },
-  { label: 'Our Story', href: '/story/' },
-  { label: 'Private Dining', href: '/private-dining/' },
-  { label: 'Gift Cards', href: '/gift-cards/' },
-  { label: 'Visit', href: '/visit/' },
+  { label: 'Menus', href: link('/menu/') },
+  { label: 'Our Story', href: link('/story/') },
+  { label: 'Private Dining', href: link('/private-dining/') },
+  { label: 'Gift Cards', href: link('/gift-cards/') },
+  { label: 'Visit', href: link('/visit/') },
 ];

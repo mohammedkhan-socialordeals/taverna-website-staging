@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 import Wordmark from '../components/Wordmark.astro';
 import ReserveBand from '../components/ReserveBand.astro';
 import Hours from '../components/Hours.astro';
-import { site } from '../data/site';
+import { site, link } from '../data/site';
 import { signatures, menu } from '../data/menu';
 
 import steak from '../assets/steak.jpg';
@@ -61,7 +61,7 @@ const yearsOpen = new Date().getFullYear() - site.since;
       <p class="hero__tag">Steaks, pasta &amp; <em>a little theatre.</em></p>
       <div class="btn-row hero__cta">
         <a class="btn btn--solid" href={site.links.reserve} target="_blank" rel="noopener">Reserve a table</a>
-        <a class="btn" href="/menu/">View the menus</a>
+        <a class="btn" href={link('/menu/')}>View the menus</a>
       </div>
     </div>
     <ul class="hero__strip">
@@ -96,7 +96,7 @@ const yearsOpen = new Date().getFullYear() - site.since;
           We’re Italian-American and proud of it. Red sauce and white tablecloths, steaks and chops, pasta made in
           house, a proper martini. The kind of dinner where somebody looks after you.
         </p>
-        <a class="link" href="/story/">Read our story</a>
+        <a class="link" href={link('/story/')}>Read our story</a>
       </div>
       <figure class="heritage__photo" data-reveal style="--i:2">
         <Image src={roomFloral} alt="Tufted leather booths and white-linen tables set with flowers and wine" widths={[500, 900, 1400]} sizes="(max-width: 62rem) 90vw, 34vw" />
@@ -187,7 +187,7 @@ const yearsOpen = new Date().getFullYear() - site.since;
           }
         </div>
         <div class="btn-row">
-          <a class="btn" href="/menu/">See the full menu</a>
+          <a class="btn" href={link('/menu/')}>See the full menu</a>
           <a class="btn" href={site.links.order} target="_blank" rel="noopener">Order takeout</a>
         </div>
       </div>
@@ -211,7 +211,7 @@ const yearsOpen = new Date().getFullYear() - site.since;
           Martinis and Negronis done properly, spritzes for the patio months, and an all-Italian wine list that runs
           from Tuesday-night Chianti to Sassicaia.
         </p>
-        <a class="link" href="/menu/#cocktails">Cocktails &amp; wine</a>
+        <a class="link" href={link('/menu/#cocktails')}>Cocktails &amp; wine</a>
       </div>
       <div class="bar__card frame" data-reveal style="--i:1">
         {
@@ -264,13 +264,13 @@ const yearsOpen = new Date().getFullYear() - site.since;
           <p>Pizza, lasagna and the rest of the family favourites, ordered direct.</p>
           <span class="door__go">Order online</span>
         </a>
-        <a class="door" href="/private-dining/" data-reveal style="--i:2">
+        <a class="door" href={link('/private-dining/')} data-reveal style="--i:2">
           <span class="door__no">03</span>
           <h3>Private Dining</h3>
           <p>Birthdays, rehearsal dinners, the company night out.</p>
           <span class="door__go">Enquire</span>
         </a>
-        <a class="door" href="/gift-cards/" data-reveal style="--i:3">
+        <a class="door" href={link('/gift-cards/')} data-reveal style="--i:3">
           <span class="door__no">04</span>
           <h3>Gift Cards</h3>
           <p>Give somebody a very good night. Delivered by email.</p>

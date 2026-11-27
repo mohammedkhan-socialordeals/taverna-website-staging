@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import ReserveBand from '../components/ReserveBand.astro';
-import { site } from '../data/site';
+import { site, link } from '../data/site';
 import knife from '../assets/room/group-tables-and-wide-centre-aisle.jpg';
 import oprah from '../assets/oprah-at-taverna.jpg';
 import bruschetta from '../assets/bruschetta.png';
@@ -95,7 +95,7 @@ const timeline = [
           always made pizza for the kids and spaghetti and lasagna the way Saskatoon likes them.
         </p>
         <div class="btn-row" style="margin-top:2rem">
-          <a class="btn" href="/menu/">See the menus</a>
+          <a class="btn" href={link('/menu/')}>See the menus</a>
         </div>
       </div>
     </div>

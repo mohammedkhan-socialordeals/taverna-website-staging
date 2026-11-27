@@ -1,5 +1,5 @@
 ---
-import { site, nav } from '../data/site';
+import { site, nav, link } from '../data/site';
 import Wordmark from './Wordmark.astro';
 const year = new Date().getFullYear();
 // show Mon–Thu / Fri–Sat / Sun as compact rows
@@ -15,7 +15,7 @@ const h = site.hours;
 
   <div class="wrap footer__grid">
     <div class="footer__brand">
-      <a href="/" aria-label="Taverna — home"><Wordmark size="md" /></a>
+      <a href={link('/')} aria-label="Taverna — home"><Wordmark size="md" /></a>
       <p>Italian-American kitchen &amp; bar. Family-run in downtown Saskatoon since {site.since}.</p>
     </div>
 

@@ -1,4 +1,5 @@
 ---
+import { link } from '../data/site';
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import knife from '../assets/bread-board.jpg';
@@ -9,8 +10,8 @@ import knife from '../assets/bread-board.jpg';
     <Fragment slot="title">Nothing but <em>crumbs.</em></Fragment>
     That page has left the table. Let’s get you back to dinner.
     <div class="btn-row" style="margin-top:2rem;justify-content:center">
-      <a class="btn btn--solid" href="/">Back home</a>
-      <a class="btn" href="/menu/">See the menus</a>
+      <a class="btn btn--solid" href={link('/')}>Back home</a>
+      <a class="btn" href={link('/menu/')}>See the menus</a>
     </div>
   </PageHero>
 </Base>

@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Hours from '../components/Hours.astro';
-import { site } from '../data/site';
+import { site, link } from '../data/site';
 import board from '../assets/room/banquet-table-side-view.jpg';
 
 const widget = `https://www.opentable.ca/widget/reservation/loader?rid=${site.openTableId}&type=standard&theme=standard&color=1&dark=false&iframe=true&domain=ca&lang=en-CA&newtab=false&ot_source=Restaurant%20website`;
@@ -33,7 +33,7 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent(`Taverna It
         </p>
         <div class="btn-row" style="margin-top:2rem">
           <a class="btn btn--dark" href={site.phoneHref}>Call {site.phone}</a>
-          <a class="btn btn--dark" href="/private-dining/">Groups &amp; private dining</a>
+          <a class="btn btn--dark" href={link('/private-dining/')}>Groups &amp; private dining</a>
         </div>
       </div>
       <div class="book__widget frame" data-reveal style="--i:1">

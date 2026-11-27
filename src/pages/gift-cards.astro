@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import ReserveBand from '../components/ReserveBand.astro';
-import { site } from '../data/site';
+import { site, link } from '../data/site';
 import Wordmark from '../components/Wordmark.astro';
 ---
 
@@ -52,7 +52,7 @@ import Wordmark from '../components/Wordmark.astro';
           <span class="ways__no">II</span>
           <h3>In person</h3>
           <p>Drop by the restaurant any evening and pick up a traditional gift card, paid by cash or card.</p>
-          <a class="link" href="/visit/">Hours &amp; directions</a>
+          <a class="link" href={link('/visit/')}>Hours &amp; directions</a>
         </article>
         <article data-reveal style="--i:2">
           <span class="ways__no">III</span>

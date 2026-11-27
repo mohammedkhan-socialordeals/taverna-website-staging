@@ -1,5 +1,5 @@
 ---
-import { site, nav } from '../data/site';
+import { site, nav, link } from '../data/site';
 import Wordmark from './Wordmark.astro';
 
 const path = Astro.url.pathname;
@@ -14,7 +14,7 @@ const isCurrent = (href: string) => path.startsWith(href);
       {left.map((n) => <a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>)}
     </nav>
 
-    <a class="header__logo" href="/" aria-label="Taverna — home">
+    <a class="header__logo" href={link('/')} aria-label="Taverna — home">
       <Wordmark />
     </a>
 
