@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import ReserveBand from '../components/ReserveBand.astro';
 import { site } from '../data/site';
+import Wordmark from '../components/Wordmark.astro';
 ---
 
 <Base
@@ -27,8 +28,7 @@ import { site } from '../data/site';
         <div class="card card--back"></div>
         <div class="card">
           <span class="card__top">Gift Card</span>
-          <span class="card__name">Taverna</span>
-          <span class="card__since script">dal 1969</span>
+          <span class="card__logo"><Wordmark size="md" /></span>
           <span class="card__foot">{site.address.street} <i>✦</i> Saskatoon</span>
         </div>
       </div>
@@ -141,6 +141,12 @@ import { site } from '../data/site';
     font-style: normal;
     color: var(--red);
     padding-inline: 0.5em;
+  }
+  .card__logo {
+    display: grid;
+    justify-items: center;
+    width: 100%;
+    margin-block: 1.4rem 1.5rem;
   }
   .card__name {
     margin-top: 1.1rem;

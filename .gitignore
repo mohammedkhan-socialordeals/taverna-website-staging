@@ -3,3 +3,6 @@ dist/
 .astro/
 .env
 .DS_Store
+
+# raw client files (logos, original photos) stay local
+Taverna WebSite Project - 2026/

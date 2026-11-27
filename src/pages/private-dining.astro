@@ -2,7 +2,27 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { site } from '../data/site';
-import steak from '../assets/steak.jpg';
+import Gallery from '../components/Gallery.astro';
+import hero from '../assets/room/banquet-tables-wide-view.jpg';
+import roomLong from '../assets/room/long-table-centre-view.jpg';
+import roomFloral from '../assets/room/floral-table-setting.jpg';
+import roomSide from '../assets/room/banquet-table-side-view.jpg';
+import roomRed from '../assets/room/group-tables-and-wide-centre-aisle.jpg';
+import roomCandle from '../assets/room/candlelit-table-with-flowers.jpg';
+import roomFlowers from '../assets/room/flowers-and-candle-detail.jpg';
+import roomDetail from '../assets/room/floral-table-detail.jpg';
+import guests from '../assets/room/dining-lifestyle-portrait.jpg';
+
+const photos = [
+  { src: roomLong, alt: 'A long banquet table set with white linen, wine and flowers', caption: 'One long table' },
+  { src: roomCandle, alt: 'A candlelit table with blush linen, flowers and wine glasses', caption: 'Dressed for the occasion' },
+  { src: roomRed, alt: 'Two long tables set for a group in the red dining room', caption: 'The red room, set for a group' },
+  { src: guests, alt: 'Guests sharing pasta at a red-checked table', caption: 'A night with friends' },
+  { src: roomFlowers, alt: 'Fresh flowers and candles on a table runner', caption: 'Flowers & candles' },
+  { src: roomSide, alt: 'Banquet tables set beside the bar', caption: 'Beside the bar' },
+  { src: roomFloral, alt: 'Tables with flowers and wine in front of tufted leather booths', caption: 'The booths' },
+  { src: roomDetail, alt: 'A place setting with striped napkin, red wine and flowers', caption: 'Every place set' },
+];
 
 const occasions = ['Birthdays & anniversaries', 'Rehearsal dinners', 'Company dinners', 'Holiday parties', 'Celebrations of life', 'Team nights out'];
 ---
@@ -11,7 +31,7 @@ const occasions = ['Birthdays & anniversaries', 'Rehearsal dinners', 'Company di
   title="Private Dining"
   description="Private dining and group dinners at Taverna in downtown Saskatoon. Birthdays, rehearsal dinners, company nights and holiday parties, served family style."
 >
-  <PageHero eyebrow="Groups + Events" image={steak} position="60% 50%">
+  <PageHero eyebrow="Groups + Events" image={hero} position="50% 40%">
     <Fragment slot="title">Private <em>Dining</em></Fragment>
     Take over a corner of the room, or more of it. Long tables, platters down the middle, and somebody else doing the dishes.
   </PageHero>
@@ -65,6 +85,14 @@ const occasions = ['Birthdays & anniversaries', 'Rehearsal dinners', 'Company di
     </div>
   </section>
 
+  <section class="section pd-room">
+    <div class="wrap center" data-reveal style="margin-bottom:clamp(2.5rem,5vw,4rem)">
+      <p class="eyebrow eyebrow--center">The room, dressed up</p>
+      <h2 class="display">Set for <em>your evening.</em></h2>
+    </div>
+    <div data-reveal><Gallery photos={photos} /></div>
+  </section>
+
   <section class="section section--oxblood">
     <div class="wrap wrap--narrow center" data-reveal>
       <p class="script" style="font-size:clamp(2rem,4.5vw,3.4rem)">Feeding the office?</p>
@@ -100,6 +128,9 @@ const occasions = ['Birthdays & anniversaries', 'Rehearsal dinners', 'Company di
 </script>
 
 <style>
+  .pd-room {
+    overflow: hidden;
+  }
   .pd {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);

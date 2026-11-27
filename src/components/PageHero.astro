@@ -51,6 +51,7 @@ const { eyebrow, image, position = 'center' } = Astro.props;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    filter: saturate(1.08) contrast(1.05) sepia(0.14);
     animation: drift 24s var(--ease) both;
   }
   .phero:has(.phero__img)::before {
