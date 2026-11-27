@@ -24,6 +24,7 @@ npm run build    # production files land in dist/
 
 ## Before launch
 
+- **Search engines are blocked by default** (every page has a noindex tag, for staging). On the production host, set the build variable `PUBLIC_ALLOW_INDEXING=true` to switch indexing on.
 - Add food, cocktail and more dining-room photography (only the Private Dining photos were supplied so far; the steak, antipasti board and bruschetta are still stock).
 - Confirm the Toast e-gift card link in `src/data/site.ts`.
 - Have Tasos review the story copy and the timeline in `src/pages/story.astro`.

@@ -21,6 +21,10 @@ const {
 const pageTitle = title ? `${title} | Taverna — dal 1969` : 'Taverna | Italian-American Steaks & Pasta in Saskatoon since 1969';
 const canonical = new URL(Astro.url.pathname, site.url).href;
 
+// Search engines are blocked by default (safe for staging).
+// For the real launch, set the build variable PUBLIC_ALLOW_INDEXING=true.
+const allowIndexing = import.meta.env.PUBLIC_ALLOW_INDEXING === 'true';
+
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'Restaurant',
@@ -57,6 +61,7 @@ const schema = {
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {!allowIndexing && <meta name="robots" content="noindex, nofollow, noarchive" />}
     <meta name="theme-color" content="#0f0a08" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:type" content="restaurant" />
