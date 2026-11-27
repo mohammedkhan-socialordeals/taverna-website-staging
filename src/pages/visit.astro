@@ -1,0 +1,148 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Hours from '../components/Hours.astro';
+import { site } from '../data/site';
+import board from '../assets/antipasti-board.jpg';
+
+const widget = `https://www.opentable.ca/widget/reservation/loader?rid=${site.openTableId}&type=standard&theme=standard&color=1&dark=false&iframe=true&domain=ca&lang=en-CA&newtab=false&ot_source=Restaurant%20website`;
+const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent(`Taverna Italian Kitchen, ${site.address.street}, ${site.address.city}, ${site.address.region}`)}&output=embed`;
+---
+
+<Base
+  title="Reservations, Hours & Location"
+  description="Reserve a table at Taverna on OpenTable. Open for dinner seven nights a week at 219 21st St E in downtown Saskatoon. Call 306.652.6366."
+>
+  <PageHero eyebrow="Reservations + Hours" image={board} position="50% 30%">
+    <Fragment slot="title">Come <em>for dinner.</em></Fragment>
+    Open seven nights a week, in the heart of downtown Saskatoon.
+  </PageHero>
+
+  <section class="section section--cream" id="reserve">
+    <div class="wrap book">
+      <div data-reveal>
+        <p class="eyebrow">Reservations</p>
+        <h2 class="title">Book <em>your table.</em></h2>
+        <p class="lede">
+          Reserve online any time with OpenTable. For parties of more than eight, or anything out of the ordinary, give
+          us a call.
+        </p>
+        <p>
+          We do our best to answer the phone, but we’re a small family-run restaurant and every one of us wears many
+          hats. If we miss you, booking online is the surest way to get your table.
+        </p>
+        <div class="btn-row" style="margin-top:2rem">
+          <a class="btn btn--dark" href={site.phoneHref}>Call {site.phone}</a>
+          <a class="btn btn--dark" href="/private-dining/">Groups &amp; private dining</a>
+        </div>
+      </div>
+      <div class="book__widget frame" data-reveal style="--i:1">
+        <div id="ot-widget">
+          <script is:inline type="text/javascript" src={widget}></script>
+        </div>
+        <noscript>
+          <a class="btn btn--dark" href={site.links.reserve}>Reserve on OpenTable</a>
+        </noscript>
+        <a class="btn btn--dark" href={site.links.reserve} target="_blank" rel="noopener">Reserve on OpenTable</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section find">
+    <div class="wrap find__grid">
+      <div data-reveal>
+        <p class="eyebrow">Hours</p>
+        <h2 class="title">Dinner, <em>nightly.</em></h2>
+        <div style="margin-top:2rem"><Hours /></div>
+      </div>
+      <div data-reveal style="--i:1">
+        <p class="eyebrow">Location</p>
+        <h2 class="title">{site.address.street}</h2>
+        <address class="find__addr">
+          {site.address.city}, {site.address.region} {site.address.postal}<br />
+          <a href={site.phoneHref}>{site.phone}</a><br />
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </address>
+        <div class="find__map">
+          <iframe title="Map showing Taverna at 219 21st St E, Saskatoon" src={mapEmbed} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="btn-row" style="margin-top:1.5rem">
+          <a class="btn" href={site.links.maps} target="_blank" rel="noopener">Get directions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--oxblood">
+    <div class="wrap wrap--narrow center" data-reveal>
+      <p class="script" style="font-size:clamp(2rem,4.5vw,3.4rem)">Staying in tonight?</p>
+      <h2 class="title">Taverna, <em>to go.</em></h2>
+      <p class="lede" style="margin-block:1.5rem 2.25rem">
+        Order direct from us for pickup, or have it brought to your door with SkipTheDishes.
+      </p>
+      <div class="btn-row">
+        <a class="btn" href={site.links.order} target="_blank" rel="noopener">Order takeout</a>
+        <a class="btn" href={site.links.delivery} target="_blank" rel="noopener">Delivery</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .book {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: center;
+  }
+  .book .lede {
+    margin-block: 1.5rem 1.2rem;
+    color: var(--ink);
+  }
+  .book__widget {
+    display: grid;
+    justify-items: center;
+    gap: 1.25rem;
+    min-width: min(20rem, 100%);
+    min-height: 20rem;
+    align-content: center;
+    background: #fbf5e9;
+  }
+
+  .find__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 6rem);
+  }
+  .find__addr {
+    margin-block: 1.25rem 2rem;
+    font-style: normal;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+  .find__addr a {
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+  .find__addr a:hover {
+    color: var(--brass-soft);
+  }
+  .find__map {
+    border: 1px solid var(--line);
+    padding: 0.45rem;
+  }
+  .find__map iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border: 0;
+    filter: grayscale(1) sepia(0.35) contrast(1.05);
+  }
+
+  @media (max-width: 62rem) {
+    .book,
+    .find__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

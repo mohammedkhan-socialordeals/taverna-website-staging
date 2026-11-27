@@ -1,0 +1,219 @@
+---
+import Base from '../layouts/Base.astro';
+import ReserveBand from '../components/ReserveBand.astro';
+import { site } from '../data/site';
+---
+
+<Base
+  title="Gift Cards"
+  description="Taverna gift cards: send an e-gift card by email in minutes, or pick up a traditional card at the restaurant in downtown Saskatoon."
+>
+  <section class="gc">
+    <div class="wrap gc__grid">
+      <div class="gc__copy">
+        <p class="eyebrow">Gift cards</p>
+        <h1 class="display">Give a very <em>good night out.</em></h1>
+        <p class="lede">
+          Steak, pasta, a bottle of something red and nowhere else to be. Send a Taverna e-gift card by email in a couple
+          of minutes, for any amount.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--solid" href={site.links.giftCards} target="_blank" rel="noopener">Send an e-gift card</a>
+          <a class="btn" href="#in-person">Other ways to buy</a>
+        </div>
+      </div>
+
+      <div class="gc__stage" aria-hidden="true">
+        <div class="card card--back"></div>
+        <div class="card">
+          <span class="card__top">Gift Card</span>
+          <span class="card__name">Taverna</span>
+          <span class="card__since script">dal 1969</span>
+          <span class="card__foot">{site.address.street} <i>✦</i> Saskatoon</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream" id="in-person">
+    <div class="wrap">
+      <header class="center" data-reveal>
+        <p class="eyebrow eyebrow--center">Three ways</p>
+        <h2 class="title">However you’d <em>like to give.</em></h2>
+      </header>
+      <div class="ways">
+        <article data-reveal style="--i:0">
+          <span class="ways__no">I</span>
+          <h3>By email</h3>
+          <p>Buy an e-gift card online and it lands in their inbox, ready to use at the table or for takeout.</p>
+          <a class="link" href={site.links.giftCards} target="_blank" rel="noopener">Buy online</a>
+        </article>
+        <article data-reveal style="--i:1">
+          <span class="ways__no">II</span>
+          <h3>In person</h3>
+          <p>Drop by the restaurant any evening and pick up a traditional gift card, paid by cash or card.</p>
+          <a class="link" href="/visit/">Hours &amp; directions</a>
+        </article>
+        <article data-reveal style="--i:2">
+          <span class="ways__no">III</span>
+          <h3>By e-Transfer</h3>
+          <p>
+            Send an Interac e-Transfer to {site.email} and include your mailing address in the message. We’ll post the
+            card to you.
+          </p>
+          <a class="link" href={`mailto:${site.email}?subject=Gift%20card`}>Email us</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <ReserveBand />
+</Base>
+
+<style>
+  .gc {
+    position: relative;
+    padding: calc(var(--header-h) + clamp(3rem, 8vw, 7rem)) 0 var(--section);
+    background:
+      radial-gradient(70% 70% at 80% 40%, rgba(184, 40, 31, 0.4), transparent 70%),
+      var(--oxblood);
+    overflow: hidden;
+  }
+  .gc__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: center;
+  }
+  .gc .lede {
+    margin-block: 1.6rem 2.4rem;
+    color: rgba(243, 233, 214, 0.85);
+  }
+
+  .gc__stage {
+    position: relative;
+    perspective: 1200px;
+    padding: 2rem;
+  }
+  .card {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    aspect-ratio: 1.586;
+    max-width: 30rem;
+    margin-inline: auto;
+    padding: 2rem;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.09), transparent 40%),
+      var(--ink);
+    border: 1px solid var(--brass);
+    outline: 1px solid var(--line);
+    outline-offset: -0.7rem;
+    border-radius: 0.9rem;
+    box-shadow: 0 40px 70px -25px rgba(0, 0, 0, 0.8);
+    transform: rotateY(-16deg) rotateX(8deg) rotate(-3deg);
+    animation: float 8s ease-in-out infinite;
+  }
+  .card--back {
+    position: absolute;
+    inset: 2rem;
+    background: var(--cream);
+    border-color: var(--cream);
+    transform: rotateY(-16deg) rotateX(8deg) rotate(6deg) translate(1.5rem, 1.25rem);
+    animation: none;
+    opacity: 0.9;
+  }
+  @keyframes float {
+    50% {
+      transform: rotateY(-10deg) rotateX(5deg) rotate(-1.5deg) translateY(-0.6rem);
+    }
+  }
+  .card__top,
+  .card__foot {
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+  .card__foot i {
+    font-style: normal;
+    color: var(--red);
+    padding-inline: 0.5em;
+  }
+  .card__name {
+    margin-top: 1.1rem;
+    padding: 0.25em 0 0.22em;
+    border-block: 1px solid var(--brass);
+    font-size: clamp(1.8rem, 4.4vw, 3.3rem);
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    margin-right: -0.24em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .card__since {
+    font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+    margin: -0.1em 0 0.9rem;
+    transform: rotate(-4deg);
+  }
+
+  .ways {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    border: 1px solid var(--line);
+  }
+  .ways article {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: clamp(1.75rem, 3.5vw, 3rem);
+    border-left: 1px solid var(--line);
+  }
+  .ways article:first-child {
+    border-left: 0;
+  }
+  .ways__no {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--red);
+  }
+  .ways h3 {
+    margin-block: 1.5rem 0.75rem;
+    font-size: 2rem;
+    font-style: italic;
+  }
+  .ways p {
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    overflow-wrap: anywhere;
+  }
+  .ways .link {
+    margin-top: auto;
+  }
+
+  @media (max-width: 62rem) {
+    .gc__grid {
+      grid-template-columns: 1fr;
+    }
+    .gc__stage {
+      padding: 1rem 0.5rem 2rem;
+    }
+    .card--back {
+      inset: 1rem 0.5rem 2rem;
+    }
+    .ways {
+      grid-template-columns: 1fr;
+    }
+    .ways article {
+      border-left: 0;
+      border-top: 1px solid var(--line);
+    }
+    .ways article:first-child {
+      border-top: 0;
+    }
+  }
+</style>

@@ -1,0 +1,810 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Wordmark from '../components/Wordmark.astro';
+import ReserveBand from '../components/ReserveBand.astro';
+import Hours from '../components/Hours.astro';
+import { site } from '../data/site';
+import { signatures, menu } from '../data/menu';
+
+import steak from '../assets/steak.jpg';
+import board from '../assets/antipasti-board.jpg';
+import linguine from '../assets/shrimp-linguine.jpg';
+import oprah from '../assets/oprah-at-taverna.jpg';
+
+const ticker = [
+  'Tableside Caesar',
+  'Bistecca alla Fiorentina',
+  'Dover Sole Piccata',
+  'Spicy Rigatoni Vodka',
+  'Veal Parmesan',
+  'Ice-cold Martinis',
+  'Whole Branzino',
+  'Lasagna al Forno',
+];
+
+const bar = menu.find((g) => g.id === 'cocktails')!.sections.slice(0, 2).flatMap((s) => s.items).slice(0, 6);
+
+const yearsOpen = new Date().getFullYear() - site.since;
+---
+
+<Base>
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <Image
+      class="hero__img"
+      src={steak}
+      alt="A grilled porterhouse steak with rosemary, sea salt and peppercorns"
+      widths={[800, 1400, 2000, 2400]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="hero__inner">
+      <p class="hero__eyebrow">Italian Kitchen <span>✦</span> Steaks <span>✦</span> Bar</p>
+      <Wordmark size="lg" tag="h1" />
+      <p class="hero__tag">Steaks, pasta &amp; <em>a little theatre.</em></p>
+      <div class="btn-row hero__cta">
+        <a class="btn btn--solid" href={site.links.reserve} target="_blank" rel="noopener">Reserve a table</a>
+        <a class="btn" href="/menu/">View the menus</a>
+      </div>
+    </div>
+    <ul class="hero__strip">
+      <li><span>Tonight</span> Dinner from 4 pm</li>
+      <li><span>Find us</span> <a href={site.links.maps} target="_blank" rel="noopener">{site.address.street}, downtown Saskatoon</a></li>
+      <li><span>Call</span> <a href={site.phoneHref}>{site.phone}</a></li>
+    </ul>
+  </section>
+
+  <!-- ═══ TICKER ═══ -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      {[...ticker, ...ticker].map((t) => <span>{t}<i>✦</i></span>)}
+    </div>
+  </div>
+
+  <!-- ═══ HERITAGE ═══ -->
+  <section class="section section--cream heritage">
+    <div class="wrap heritage__grid">
+      <div class="heritage__year" data-reveal aria-hidden="true">
+        <span class="heritage__num">19<br />69</span>
+        <span class="script heritage__script">since</span>
+      </div>
+      <div class="heritage__copy" data-reveal style="--i:1">
+        <p class="eyebrow">Our story</p>
+        <h2 class="display">{yearsOpen} years on <em>21st Street.</em></h2>
+        <p class="lede">
+          Taverna opened its doors in downtown Saskatoon in 1969, and the town has been coming back ever since: first
+          dates, anniversaries, deals closed over veal and red wine, Sunday pizza with the kids.
+        </p>
+        <p>
+          We’re Italian-American and proud of it. Red sauce and white tablecloths, steaks and chops, pasta made in
+          house, a proper martini. The kind of dinner where somebody looks after you.
+        </p>
+        <a class="link" href="/story/">Read our story</a>
+      </div>
+      <div class="heritage__plate" data-reveal style="--i:2">
+        <Image src={linguine} alt="Linguine with jumbo shrimp, cherry tomatoes and olives" widths={[500, 900, 1400]} sizes="(max-width: 62rem) 90vw, 40vw" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ THE THEATRE ═══ -->
+  <section class="section theatre">
+    <div class="wrap">
+      <header class="center theatre__head" data-reveal>
+        <p class="eyebrow eyebrow--center">The service</p>
+        <h2 class="display">Dinner <em>and a show.</em></h2>
+        <p class="lede">
+          White shirts, bow ties and a cart rolling up to your table. The old-school Italian steakhouse, the way it used
+          to be done.
+        </p>
+      </header>
+
+      <ol class="acts">
+        <li class="act" data-reveal style="--i:0">
+          <span class="act__no">Act I</span>
+          <svg viewBox="0 0 120 120" class="act__art" aria-hidden="true">
+            <path d="M18 62h84c0 24-18 40-42 40S18 86 18 62Z" />
+            <path d="M12 62h96M44 102h32" />
+            <path d="M40 50c4-10 12-8 14 0M58 46c5-12 15-9 16 2M76 52c3-8 10-7 12 0" />
+            <path d="M84 20 66 58M92 18c6 6 2 16-8 20" />
+          </svg>
+          <h3 class="act__title">The Caesar</h3>
+          <p>Romaine, pancetta, focaccia croutons and grana padano, tossed and dressed in front of you.</p>
+        </li>
+        <li class="act" data-reveal style="--i:1">
+          <span class="act__no">Act II</span>
+          <svg viewBox="0 0 120 120" class="act__art" aria-hidden="true">
+            <path d="M14 60c16-22 44-28 68-12l22-14-6 26 6 26-22-14c-24 16-52 10-68-12Z" />
+            <circle cx="32" cy="56" r="2.5" />
+            <path d="M48 46c6 8 6 20 0 28M62 44c6 10 6 22 0 32M76 48c4 8 4 16 0 24" />
+          </svg>
+          <h3 class="act__title">The Fish</h3>
+          <p>Whole branzino and Dover sole piccata, de-boned at the table with brown butter, lemon and capers.</p>
+        </li>
+        <li class="act" data-reveal style="--i:2">
+          <span class="act__no">Act III</span>
+          <svg viewBox="0 0 120 120" class="act__art" aria-hidden="true">
+            <path d="M24 38c14-16 48-18 66-4 14 12 12 34-4 46-10 8-18 6-26 12-10 8-24 6-32-6-10-16-12-36-4-48Z" />
+            <path d="M52 40c-4 10-2 18 6 22 8 4 16 2 22 8M52 40c6-4 14-2 16 4" />
+            <path d="M34 54c2 10 6 18 12 24" />
+          </svg>
+          <h3 class="act__title">The Fiorentina</h3>
+          <p>Thirty-two ounces of prime porterhouse with rosemary and olive oil, carved and shared between two.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ═══ SIGNATURES ═══ -->
+  <section class="section section--ink2 sig">
+    <div class="wrap sig__grid">
+      <figure class="sig__photo" data-reveal>
+        <Image src={board} alt="A dark wooden board surrounded by prosciutto, cheese, olives, pesto, peppers and bread" widths={[600, 1000, 1600]} sizes="(max-width: 62rem) 100vw, 45vw" />
+        <figcaption class="script">buon appetito</figcaption>
+      </figure>
+      <div class="sig__list" data-reveal style="--i:1">
+        <p class="eyebrow">From the kitchen</p>
+        <h2 class="display">The <em>classics.</em></h2>
+        <div class="sig__dishes">
+          {
+            signatures.map((d) => (
+              <div class="dish">
+                <span class="dish__name">{d.name}</span>
+                <span class="dish__price">{d.price}</span>
+                <p class="dish__desc">{d.desc}</p>
+              </div>
+            ))
+          }
+        </div>
+        <div class="btn-row">
+          <a class="btn" href="/menu/">See the full menu</a>
+          <a class="btn" href={site.links.order} target="_blank" rel="noopener">Order takeout</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ BAR ═══ -->
+  <section class="section section--oxblood bar">
+    <div class="wrap bar__grid">
+      <div class="bar__intro" data-reveal>
+        <svg viewBox="0 0 120 160" class="bar__glass" aria-hidden="true">
+          <path d="M14 18h92L60 78Z" />
+          <path d="M60 78v58M34 140h52" />
+          <path d="M28 36h64" />
+          <circle cx="70" cy="46" r="6" />
+          <path d="M70 46 94 6" />
+        </svg>
+        <p class="eyebrow">At the bar</p>
+        <h2 class="display">Stirred, <em>very cold.</em></h2>
+        <p class="lede">
+          Martinis and Negronis done properly, spritzes for the patio months, and an all-Italian wine list that runs
+          from Tuesday-night Chianti to Sassicaia.
+        </p>
+        <a class="link" href="/menu/#cocktails">Cocktails &amp; wine</a>
+      </div>
+      <div class="bar__card frame" data-reveal style="--i:1">
+        {
+          bar.map((d) => (
+            <div class="dish">
+              <span class="dish__name">{d.name}</span>
+              <span class="dish__price">{d.price}</span>
+              <p class="dish__desc">{d.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ OPRAH ═══ -->
+  <section class="section section--cream press">
+    <div class="wrap press__grid">
+      <figure class="press__photo" data-reveal>
+        <Image src={oprah} alt="Oprah Winfrey and her party at a table at Taverna, from her Instagram post" width={400} />
+      </figure>
+      <blockquote class="press__quote" data-reveal style="--i:1">
+        <p class="eyebrow">The night Oprah came for dinner</p>
+        <p class="press__words">“Having our best meal at Taverna in Saskatoon.”</p>
+        <footer>
+          <cite>Oprah Winfrey</cite>
+          <span>A party of twenty. They stayed three hours.</span>
+        </footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ═══ FOUR DOORS ═══ -->
+  <section class="section doors">
+    <div class="wrap">
+      <header class="center" data-reveal>
+        <p class="eyebrow eyebrow--center">However you like it</p>
+        <h2 class="title">Four ways to <em>Taverna.</em></h2>
+      </header>
+      <div class="doors__grid">
+        <a class="door" href={site.links.reserve} target="_blank" rel="noopener" data-reveal style="--i:0">
+          <span class="door__no">01</span>
+          <h3>Reserve</h3>
+          <p>Book your table on OpenTable in under a minute.</p>
+          <span class="door__go">Book now</span>
+        </a>
+        <a class="door" href={site.links.order} target="_blank" rel="noopener" data-reveal style="--i:1">
+          <span class="door__no">02</span>
+          <h3>Takeout</h3>
+          <p>Pizza, lasagna and the rest of the family favourites, ordered direct.</p>
+          <span class="door__go">Order online</span>
+        </a>
+        <a class="door" href="/private-dining/" data-reveal style="--i:2">
+          <span class="door__no">03</span>
+          <h3>Private Dining</h3>
+          <p>Birthdays, rehearsal dinners, the company night out.</p>
+          <span class="door__go">Enquire</span>
+        </a>
+        <a class="door" href="/gift-cards/" data-reveal style="--i:3">
+          <span class="door__no">04</span>
+          <h3>Gift Cards</h3>
+          <p>Give somebody a very good night. Delivered by email.</p>
+          <span class="door__go">Send one</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ VISIT ═══ -->
+  <section class="section section--ink2 visit">
+    <div class="wrap visit__grid">
+      <div data-reveal>
+        <p class="eyebrow">Visit</p>
+        <h2 class="display">Downtown, <em>since day one.</em></h2>
+        <address class="visit__addr">
+          {site.address.street}<br />
+          {site.address.city}, {site.address.region} {site.address.postal}
+        </address>
+        <div class="btn-row">
+          <a class="btn" href={site.links.maps} target="_blank" rel="noopener">Get directions</a>
+          <a class="btn" href={site.phoneHref}>{site.phone}</a>
+        </div>
+      </div>
+      <div class="frame" data-reveal style="--i:1">
+        <Hours />
+      </div>
+    </div>
+  </section>
+
+  <ReserveBand />
+</Base>
+
+<style>
+  /* ── hero ── */
+  .hero {
+    position: relative;
+    isolation: isolate;
+    min-height: 100svh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    overflow: hidden;
+  }
+  .hero__img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 60% 50%;
+    animation: hero-zoom 28s var(--ease) both;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(70% 60% at 50% 48%, rgba(15, 10, 8, 0.72), rgba(15, 10, 8, 0.35) 70%),
+      linear-gradient(to bottom, rgba(15, 10, 8, 0.85), rgba(63, 10, 15, 0.25) 40%, var(--ink) 97%);
+  }
+  @keyframes hero-zoom {
+    from {
+      transform: scale(1.18);
+    }
+    to {
+      transform: scale(1.02);
+    }
+  }
+  .hero__inner {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    text-align: center;
+    padding: calc(var(--header-h) + 2rem) var(--gutter) 2rem;
+  }
+  .hero__inner > * {
+    animation: rise 1.3s var(--ease) both;
+  }
+  .hero__inner > :nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .hero__inner > :nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  .hero__inner > :nth-child(4) {
+    animation-delay: 0.55s;
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+  }
+  .hero__eyebrow {
+    margin: 0 0 clamp(1.25rem, 3vw, 2.25rem);
+    font-size: clamp(0.62rem, 1.1vw, 0.8rem);
+    font-weight: 500;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--brass-soft);
+  }
+  .hero__eyebrow span {
+    color: var(--red);
+    padding-inline: 0.6em;
+  }
+  .hero__tag {
+    margin: clamp(0.5rem, 2vw, 1.25rem) 0 0;
+    font-family: var(--display);
+    font-size: clamp(1.4rem, 3vw, 2.4rem);
+    line-height: 1.2;
+  }
+  .hero__tag em {
+    color: var(--brass-soft);
+  }
+  .hero__cta {
+    margin-top: clamp(1.75rem, 3.5vw, 2.75rem);
+    justify-content: center;
+  }
+  .hero__strip {
+    list-style: none;
+    margin: 0;
+    padding: 1.1rem var(--gutter);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem clamp(1.5rem, 5vw, 4.5rem);
+    border-top: 1px solid var(--line);
+    font-size: 0.92rem;
+    background: rgba(15, 10, 8, 0.55);
+    backdrop-filter: blur(6px);
+  }
+  .hero__strip span {
+    margin-right: 0.8em;
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+  .hero__strip a {
+    text-decoration: none;
+  }
+  .hero__strip a:hover {
+    color: var(--brass-soft);
+  }
+
+  /* ── ticker ── */
+  .ticker {
+    overflow: hidden;
+    background: var(--red);
+    color: var(--cream);
+    padding-block: 0.95rem;
+  }
+  .ticker__track {
+    display: flex;
+    width: max-content;
+    animation: tick 48s linear infinite;
+  }
+  .ticker span {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 1.25rem;
+    white-space: nowrap;
+  }
+  .ticker i {
+    font-style: normal;
+    font-size: 0.6em;
+    padding-inline: 1.6em;
+    vertical-align: 0.2em;
+    color: var(--ink);
+  }
+  @keyframes tick {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* ── heritage ── */
+  .heritage {
+    overflow: hidden;
+  }
+  .heritage__grid {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+  .heritage__year {
+    position: relative;
+  }
+  .heritage__num {
+    display: block;
+    font-family: var(--display);
+    font-size: clamp(6rem, 13vw, 12rem);
+    font-weight: 500;
+    line-height: 0.82;
+    letter-spacing: -0.03em;
+    color: var(--wine);
+  }
+  .heritage__script {
+    position: absolute;
+    top: -0.95em;
+    left: -0.15em;
+    font-size: clamp(2.6rem, 5vw, 4.4rem);
+    color: var(--red);
+    transform: rotate(-8deg);
+  }
+  .heritage__copy .lede {
+    margin-block: 1.6rem 1.2rem;
+    color: var(--ink);
+  }
+  .heritage__copy .link {
+    margin-top: 1rem;
+  }
+  .heritage__plate {
+    margin-right: calc(var(--gutter) * -1.5);
+  }
+  .heritage__plate img {
+    mix-blend-mode: multiply; /* melts the photo's white backdrop into the cream */
+    width: 100%;
+    -webkit-mask-image: radial-gradient(ellipse 72% 70% at 68% 70%, #000 50%, transparent 100%);
+    mask-image: radial-gradient(ellipse 72% 70% at 68% 70%, #000 50%, transparent 100%);
+  }
+
+  /* ── theatre ── */
+  .theatre {
+    background:
+      radial-gradient(60% 50% at 50% 0%, rgba(201, 163, 93, 0.12), transparent 70%),
+      var(--ink);
+  }
+  .theatre__head .lede {
+    margin-top: 1.6rem;
+  }
+  .acts {
+    list-style: none;
+    margin: clamp(3rem, 6vw, 5rem) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--line);
+  }
+  .act {
+    position: relative;
+    padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 3rem) clamp(2.25rem, 4vw, 3.5rem);
+    text-align: center;
+    border-left: 1px solid var(--line);
+    transition: background 0.6s var(--ease);
+  }
+  .act:first-child {
+    border-left: 0;
+  }
+  .act:hover {
+    background: rgba(201, 163, 93, 0.06);
+  }
+  .act__no {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+  .act__art {
+    width: 7.5rem;
+    margin: 1.75rem auto;
+    fill: none;
+    stroke: var(--brass);
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.8s var(--ease);
+  }
+  .act:hover .act__art {
+    transform: rotate(-6deg) scale(1.06);
+  }
+  .act__title {
+    font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+    font-style: italic;
+    margin-bottom: 0.8rem;
+  }
+  .act p {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 22em;
+    margin-inline: auto;
+  }
+
+  /* ── signatures ── */
+  .sig__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: center;
+  }
+  .sig__photo {
+    position: relative;
+    margin: 0;
+  }
+  .sig__photo img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    filter: saturate(0.92) contrast(1.05);
+  }
+  .sig__photo::after {
+    content: '';
+    position: absolute;
+    inset: 0.9rem;
+    border: 1px solid rgba(243, 233, 214, 0.35);
+    pointer-events: none;
+  }
+  .sig__photo figcaption {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(-6deg);
+    font-size: clamp(2.4rem, 5vw, 4.2rem);
+    white-space: nowrap;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.8);
+  }
+  .sig__dishes {
+    margin-block: 1.75rem 2.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  /* ── bar ── */
+  .bar__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: center;
+  }
+  .bar__glass {
+    width: 4.5rem;
+    margin-bottom: 2rem;
+    fill: none;
+    stroke: var(--brass-soft);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transform-origin: 50% 100%;
+    animation: sway 7s ease-in-out infinite;
+  }
+  @keyframes sway {
+    50% {
+      transform: rotate(4deg);
+    }
+  }
+  .bar__intro .lede {
+    margin-block: 1.6rem 2rem;
+    color: rgba(243, 233, 214, 0.8);
+  }
+  .bar__card {
+    background: rgba(15, 10, 8, 0.45);
+  }
+  .bar__card .dish:last-child {
+    border-bottom: 0;
+  }
+
+  /* ── press ── */
+  .press__grid {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: clamp(2.5rem, 7vw, 7rem);
+    align-items: center;
+    max-width: 68rem;
+  }
+  .press__photo {
+    margin: 0;
+    padding: 0.8rem 0.8rem 0.9rem;
+    background: #fff;
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.2),
+      0 24px 50px -18px rgba(63, 10, 15, 0.55);
+    transform: rotate(-4deg);
+    transition: transform 0.8s var(--ease);
+    width: min(21rem, 74vw);
+  }
+  .press__photo:hover {
+    transform: rotate(-1deg) scale(1.02);
+  }
+  .press__photo img {
+    width: 100%;
+  }
+  .press__quote {
+    margin: 0;
+  }
+  .press__words {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(2rem, 4.6vw, 4rem);
+    line-height: 1.1;
+    color: var(--wine);
+    margin-bottom: 1.75rem;
+    text-wrap: balance;
+  }
+  .press__quote footer {
+    display: grid;
+    gap: 0.2rem;
+  }
+  .press__quote cite {
+    font-style: normal;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+  .press__quote footer span {
+    color: var(--muted);
+  }
+
+  /* ── doors ── */
+  .doors__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .door {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 19rem;
+    padding: 2rem clamp(1.4rem, 2.4vw, 2.2rem);
+    background: var(--ink);
+    text-decoration: none;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .door::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(to top, var(--wine), var(--oxblood));
+    transform: translateY(101%);
+    transition: transform 0.7s var(--ease);
+  }
+  .door:hover::before,
+  .door:focus-visible::before {
+    transform: none;
+  }
+  .door__no {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--brass);
+  }
+  .door h3 {
+    margin-top: auto;
+    font-size: clamp(1.9rem, 2.6vw, 2.5rem);
+    font-style: italic;
+  }
+  .door p {
+    margin: 0.7rem 0 1.5rem;
+    color: var(--muted);
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+  .door__go {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--brass-soft);
+  }
+  .door__go::after {
+    content: ' →';
+    display: inline-block;
+    margin-left: 0.5em;
+    transition: transform 0.5s var(--ease);
+  }
+  .door:hover .door__go::after {
+    transform: translateX(0.5em);
+  }
+
+  /* ── visit ── */
+  .visit {
+    overflow: hidden;
+  }
+  .visit__grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: center;
+  }
+  .visit__addr {
+    margin-block: 1.75rem 2.25rem;
+    font-family: var(--display);
+    font-style: normal;
+    font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+    line-height: 1.35;
+    color: var(--muted);
+  }
+  .visit .frame {
+    background: var(--ink);
+  }
+
+  /* ── responsive ── */
+  @media (max-width: 62rem) {
+    .heritage__grid {
+      grid-template-columns: 1fr;
+    }
+    .heritage__num br {
+      display: none;
+    }
+    .heritage__num {
+      font-size: clamp(5.5rem, 26vw, 9rem);
+    }
+    .heritage__plate {
+      margin-inline: 0 calc(var(--gutter) * -1);
+    }
+    .acts {
+      grid-template-columns: 1fr;
+    }
+    .act {
+      border-left: 0;
+      border-top: 1px solid var(--line);
+    }
+    .act:first-child {
+      border-top: 0;
+    }
+    .sig__grid,
+    .bar__grid,
+    .visit__grid {
+      grid-template-columns: 1fr;
+    }
+    .sig__photo img {
+      aspect-ratio: 4 / 3;
+    }
+    .press__grid {
+      grid-template-columns: 1fr;
+      justify-items: start;
+    }
+    .doors__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .door {
+      min-height: 16rem;
+    }
+    .hero__strip {
+      display: none;
+    }
+    .hero {
+      padding-bottom: 4.5rem;
+    }
+  }
+  @media (max-width: 34rem) {
+    .doors__grid {
+      grid-template-columns: 1fr;
+    }
+    .door {
+      min-height: 0;
+    }
+    .door h3 {
+      margin-top: 2.5rem;
+    }
+    .hero__cta .btn {
+      width: 100%;
+    }
+  }
+</style>

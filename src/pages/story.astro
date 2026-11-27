@@ -1,0 +1,273 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ReserveBand from '../components/ReserveBand.astro';
+import { site } from '../data/site';
+import knife from '../assets/bread-board.jpg';
+import oprah from '../assets/oprah-at-taverna.jpg';
+import bruschetta from '../assets/bruschetta.png';
+
+// DRAFT TIMELINE — only 1969 and the Oprah visit come from the old site.
+// Tasos: add the real milestones (founders, renovations, anniversaries) here.
+const timeline = [
+  { year: '1969', title: 'The doors open', text: 'Taverna starts serving Italian food on 21st Street East in downtown Saskatoon.' },
+  { year: 'Since', title: 'A family room', text: 'Still family-run, still the place the city books for birthdays, anniversaries and Friday nights.' },
+  { year: 'One night', title: 'Oprah, party of twenty', text: 'Passing through Saskatoon, Oprah Winfrey brings an entourage of twenty and stays three hours.' },
+  { year: 'Today', title: 'The steakhouse years', text: 'Bow ties and vests, tableside Caesar, fish de-boned at the table. The old-school Italian steakhouse, brought back.' },
+];
+---
+
+<Base
+  title="Our Story"
+  description="Taverna has been serving Saskatoon since 1969. The story of a family-run Italian-American restaurant on 21st Street East, and where it’s headed next."
+>
+  <PageHero eyebrow={`Dal ${site.since}`} image={knife} position="50% 60%">
+    <Fragment slot="title">Food, wine <em>&amp; family.</em></Fragment>
+    More than half a century at the same address, and still setting the table every night.
+  </PageHero>
+
+  <section class="section section--cream story">
+    <div class="wrap story__grid">
+      <div class="story__lead" data-reveal>
+        <p class="eyebrow">Who we are</p>
+        <h2 class="title">Italian-American, <em>and proud of it.</em></h2>
+        <Image class="story__art" src={bruschetta} alt="Three bruschetta: tomato and basil, mushroom, and prosciutto with mozzarella" widths={[400, 700]} sizes="(max-width: 62rem) 60vw, 24vw" />
+      </div>
+      <div class="story__body" data-reveal style="--i:1">
+        <p class="story__drop">
+          At Taverna we seek out the best imported Italian ingredients for your table, complemented by local products
+          whenever possible. We believe that the soul of Italian cooking is elegance in simplicity. There should be
+          nothing to distract, nothing to hide behind.
+        </p>
+        <p>
+          We also understand that sometimes Italian-American cooking is a comfort that just can’t be replaced: veal
+          parmesan under a blanket of mozzarella, lasagna from the oven, spaghetti the way you remember it. At Taverna
+          you get both.
+        </p>
+        <p>
+          Simple ingredients like vine-ripened San Marzano tomatoes, fresh garlic, warm basil and the thick golden oil of
+          first-pressed olives are celebrated here. And wine is as essential to a good meal as family, shared warmth and
+          hospitality.
+        </p>
+        <p>
+          That’s why we haven’t lost touch with the romance of the old world. We invite you to enjoy the spirit of
+          relaxed enjoyment we work to recreate at Taverna every night.
+        </p>
+        <p class="script story__sign">Buon appetito!</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section time">
+    <div class="wrap">
+      <header class="center" data-reveal>
+        <p class="eyebrow eyebrow--center">Then &amp; now</p>
+        <h2 class="display">A little <em>history.</em></h2>
+      </header>
+      <ol class="time__list">
+        {
+          timeline.map((t, i) => (
+            <li data-reveal style={`--i:${i}`}>
+              <span class="time__year">{t.year}</span>
+              <h3>{t.title}</h3>
+              <p>{t.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--oxblood next">
+    <div class="wrap next__grid">
+      <div data-reveal>
+        <p class="eyebrow">Where we’re headed</p>
+        <h2 class="display">The steakhouse, <em>the old way.</em></h2>
+      </div>
+      <div data-reveal style="--i:1">
+        <p class="lede">
+          Think of the great Italian steakhouses: captains in white shirts and bow ties, a Caesar built at your table, a
+          whole fish boned in front of you, a porterhouse for two arriving on a cart.
+        </p>
+        <p>
+          That is the room we’re building. A little more glamour, a little more ceremony, and the same kitchen that has
+          always made pizza for the kids and spaghetti and lasagna the way Saskatoon likes them.
+        </p>
+        <div class="btn-row" style="margin-top:2rem">
+          <a class="btn" href="/menu/">See the menus</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream buzz">
+    <div class="wrap buzz__grid">
+      <figure class="buzz__photo" data-reveal>
+        <Image src={oprah} alt="Oprah Winfrey and her party at a table at Taverna, from her Instagram post" width={400} />
+      </figure>
+      <div data-reveal style="--i:1">
+        <p class="eyebrow">The buzz</p>
+        <h2 class="title">Oprah <em>loves Taverna.</em></h2>
+        <p class="lede">
+          While travelling through Saskatoon, Oprah stopped by Taverna with an entourage of twenty and stayed for three
+          hours. We enjoyed her philosophy; she enjoyed our food and hospitality.
+        </p>
+        <p class="buzz__quote">“Having our best meal at Taverna in Saskatoon.”</p>
+      </div>
+    </div>
+  </section>
+
+  <ReserveBand />
+</Base>
+
+<style>
+  .story__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 6rem);
+  }
+  .story__lead {
+    position: sticky;
+    top: calc(var(--header-h) + 2rem);
+    align-self: start;
+    background: var(--cream); /* lets the photo blend into the cream */
+  }
+  .story__art {
+    width: min(19rem, 70%);
+    margin-top: 2rem;
+    mix-blend-mode: multiply;
+  }
+  .story__body {
+    font-size: 1.12rem;
+  }
+  .story__drop::first-letter {
+    float: left;
+    font-family: var(--display);
+    font-size: 5.2em;
+    line-height: 0.78;
+    padding: 0.08em 0.12em 0 0;
+    color: var(--red);
+  }
+  .story__sign {
+    font-size: 3rem;
+    color: var(--red);
+    margin-top: 2rem;
+  }
+
+  .time__list {
+    list-style: none;
+    margin: clamp(3rem, 6vw, 5rem) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--brass);
+  }
+  .time__list li {
+    position: relative;
+    padding: 2.25rem 1.75rem 0 0;
+  }
+  .time__list li::before {
+    content: '';
+    position: absolute;
+    top: -0.4rem;
+    left: 0;
+    width: 0.75rem;
+    height: 0.75rem;
+    background: var(--red);
+    transform: rotate(45deg);
+  }
+  .time__year {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(2rem, 3.4vw, 3rem);
+    color: var(--brass-soft);
+    line-height: 1;
+  }
+  .time__list h3 {
+    margin-block: 1rem 0.6rem;
+    font-family: var(--sans);
+    font-size: 0.76rem;
+    font-weight: 500;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+  }
+  .time__list p {
+    color: var(--muted);
+    font-size: 1rem;
+  }
+
+  .next {
+    overflow: hidden;
+  }
+  .next__grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: center;
+  }
+  .next .lede {
+    color: var(--cream);
+    margin-bottom: 1.2rem;
+  }
+  .next p {
+    color: rgba(243, 233, 214, 0.8);
+  }
+
+  .buzz__grid {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: clamp(2.5rem, 7vw, 7rem);
+    align-items: center;
+    max-width: 68rem;
+  }
+  .buzz__photo {
+    margin: 0;
+    padding: 0.8rem;
+    background: #fff;
+    width: min(21rem, 74vw);
+    transform: rotate(3deg);
+    box-shadow: 0 24px 50px -18px rgba(63, 10, 15, 0.55);
+  }
+  .buzz__photo img {
+    width: 100%;
+  }
+  .buzz .lede {
+    margin-block: 1.4rem;
+    color: var(--ink);
+  }
+  .buzz__quote {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+    line-height: 1.2;
+    color: var(--wine);
+    padding-left: 1.25rem;
+    border-left: 2px solid var(--red);
+  }
+
+  @media (max-width: 62rem) {
+    .story__grid,
+    .next__grid,
+    .buzz__grid {
+      grid-template-columns: 1fr;
+    }
+    .story__lead {
+      position: static;
+    }
+    .time__list {
+      grid-template-columns: 1fr 1fr;
+      row-gap: 2.5rem;
+      border-top: 0;
+    }
+    .time__list li {
+      border-top: 1px solid var(--brass);
+    }
+  }
+  @media (max-width: 34rem) {
+    .time__list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

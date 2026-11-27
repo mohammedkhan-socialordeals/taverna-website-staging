@@ -1,0 +1,68 @@
+---
+// Typeset stand-in for the new "TAVERNA / dal 1969" logo.
+// When the real logo file arrives, drop it in src/assets and
+// replace the markup below with an <Image /> — one file, whole site.
+interface Props {
+  size?: 'sm' | 'lg';
+  tag?: string;
+}
+const { size = 'sm', tag = 'span' } = Astro.props;
+const Tag = tag as any;
+---
+
+<Tag class:list={['wordmark', `wordmark--${size}`]}>
+  <span class="wordmark__name">Taverna</span>
+  <span class="wordmark__since" aria-label="dal 1969">dal 1969</span>
+</Tag>
+
+<style>
+  .wordmark {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    color: var(--cream);
+    text-decoration: none;
+  }
+  .wordmark__name {
+    font-family: var(--sans);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    margin-right: -0.3em; /* optically centre tracked caps */
+    padding: 0.32em 0 0.3em;
+    border-block: 1px solid var(--brass);
+  }
+  .wordmark__since {
+    font-family: var(--script);
+    color: var(--brass-soft);
+    white-space: nowrap;
+  }
+
+  .wordmark--sm .wordmark__name {
+    font-size: 1.15rem;
+  }
+  .wordmark--sm .wordmark__since {
+    font-size: 1.05rem;
+    margin-top: 0.12em;
+  }
+
+  .wordmark--lg {
+    font-family: var(--sans);
+  }
+  .wordmark--lg .wordmark__name {
+    font-size: clamp(2.9rem, 13.5vw, 12.5rem);
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    margin-right: -0.16em;
+    padding: 0.14em 0 0.12em;
+    border-block-width: 2px;
+  }
+  .wordmark--lg .wordmark__since {
+    font-size: clamp(2.4rem, 7vw, 6.5rem);
+    margin-top: -0.28em;
+    transform: rotate(-5deg);
+    text-shadow: 0 2px 30px rgba(0, 0, 0, 0.7);
+  }
+</style>

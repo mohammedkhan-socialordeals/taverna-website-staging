@@ -1,0 +1,212 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+import steak from '../assets/steak.jpg';
+
+const occasions = ['Birthdays & anniversaries', 'Rehearsal dinners', 'Company dinners', 'Holiday parties', 'Celebrations of life', 'Team nights out'];
+---
+
+<Base
+  title="Private Dining"
+  description="Private dining and group dinners at Taverna in downtown Saskatoon. Birthdays, rehearsal dinners, company nights and holiday parties, served family style."
+>
+  <PageHero eyebrow="Groups + Events" image={steak} position="60% 50%">
+    <Fragment slot="title">Private <em>Dining</em></Fragment>
+    Take over a corner of the room, or more of it. Long tables, platters down the middle, and somebody else doing the dishes.
+  </PageHero>
+
+  <section class="section section--cream">
+    <div class="wrap pd">
+      <div data-reveal>
+        <p class="eyebrow">The occasion</p>
+        <h2 class="title">A table for <em>everybody.</em></h2>
+        <p class="lede">
+          Taverna has hosted Saskatoon’s big nights since 1969. Tell us the date, the headcount and what you’re
+          celebrating, and we’ll put together a menu served family style: antipasti to share, pasta, platters of veal,
+          chicken and steak, and the wine to go with it.
+        </p>
+        <ul class="pd__list">
+          {occasions.map((o) => <li>{o}</li>)}
+        </ul>
+        <p class="pd__note">
+          Prefer to talk it through? Call <a href={site.phoneHref}>{site.phone}</a> or email{' '}
+          <a href={`mailto:${site.email}`}>{site.email}</a>.
+        </p>
+      </div>
+
+      <form class="pd__form frame" data-enquiry data-reveal style="--i:1">
+        <h3 class="pd__formtitle">Enquire</h3>
+        <label>
+          <span>Your name</span>
+          <input name="name" type="text" autocomplete="name" required />
+        </label>
+        <label>
+          <span>Phone</span>
+          <input name="phone" type="tel" autocomplete="tel" />
+        </label>
+        <div class="pd__row">
+          <label>
+            <span>Date</span>
+            <input name="date" type="date" required />
+          </label>
+          <label>
+            <span>Guests</span>
+            <input name="guests" type="number" min="6" max="200" inputmode="numeric" placeholder="12" required />
+          </label>
+        </div>
+        <label>
+          <span>The occasion</span>
+          <textarea name="details" rows="4" placeholder="Tell us a little about your evening"></textarea>
+        </label>
+        <button class="btn btn--dark" type="submit">Send enquiry</button>
+        <p class="pd__small">This opens an email to our team with your details filled in.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section section--oxblood">
+    <div class="wrap wrap--narrow center" data-reveal>
+      <p class="script" style="font-size:clamp(2rem,4.5vw,3.4rem)">Feeding the office?</p>
+      <h2 class="title">Catering &amp; <em>large takeout orders</em></h2>
+      <p class="lede" style="margin-block:1.5rem 2.25rem">
+        Trays of lasagna, pizza for the team, pasta for the whole family. Order online for pickup, or call us for
+        anything bigger and we’ll sort it out.
+      </p>
+      <div class="btn-row">
+        <a class="btn" href={site.links.order} target="_blank" rel="noopener">Order online</a>
+        <a class="btn" href={site.phoneHref}>Call {site.phone}</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script define:vars={{ email: site.email }}>
+  // No server needed: builds a pre-filled email. Swap for a form service later if wanted.
+  document.querySelector('[data-enquiry]')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const subject = `Private dining enquiry — ${f.get('guests')} guests, ${f.get('date')}`;
+    const body = [
+      `Name: ${f.get('name')}`,
+      `Phone: ${f.get('phone') || '—'}`,
+      `Date: ${f.get('date')}`,
+      `Guests: ${f.get('guests')}`,
+      '',
+      f.get('details') || '',
+    ].join('\n');
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+</script>
+
+<style>
+  .pd {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: start;
+  }
+  .pd .lede {
+    margin-block: 1.5rem 2rem;
+    color: var(--ink);
+  }
+  .pd__list {
+    list-style: none;
+    margin: 0 0 2rem;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--line);
+  }
+  .pd__list li {
+    padding: 0.8rem 0;
+    border-bottom: 1px dotted var(--line);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 1.2rem;
+  }
+  .pd__list li::before {
+    content: '✦';
+    margin-right: 0.8em;
+    font-size: 0.6em;
+    font-style: normal;
+    color: var(--red);
+    vertical-align: 0.25em;
+  }
+  .pd__note {
+    color: var(--muted);
+  }
+  .pd__note a {
+    color: var(--ink);
+  }
+
+  .pd__form {
+    display: grid;
+    gap: 1.2rem;
+    background: #fbf5e9;
+  }
+  .pd__formtitle {
+    font-size: 2.2rem;
+    font-style: italic;
+    color: var(--wine);
+  }
+  .pd__row {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 1.2rem;
+  }
+  .pd__form label {
+    display: grid;
+    gap: 0.4rem;
+    min-width: 0;
+  }
+  .pd__form label span {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .pd__form input,
+  .pd__form textarea {
+    width: 100%;
+    padding: 0.75rem 0;
+    border: 0;
+    border-bottom: 1px solid var(--ink);
+    border-radius: 0;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-family: var(--display);
+    font-size: 1.2rem;
+  }
+  .pd__form textarea {
+    resize: vertical;
+    font-family: var(--sans);
+    font-size: 1rem;
+  }
+  .pd__form input:focus-visible,
+  .pd__form textarea:focus-visible {
+    outline: 0;
+    border-bottom-color: var(--red);
+    box-shadow: 0 1px 0 var(--red);
+  }
+  .pd__form .btn {
+    margin-top: 0.5rem;
+  }
+  .pd__small {
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 62rem) {
+    .pd {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 30rem) {
+    .pd__list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,192 @@
+---
+import { site, nav } from '../data/site';
+import Wordmark from './Wordmark.astro';
+const year = new Date().getFullYear();
+// show Mon–Thu / Fri–Sat / Sun as compact rows
+const h = site.hours;
+---
+
+<footer class="footer">
+  <div class="footer__marquee" aria-hidden="true">
+    <div class="footer__track">
+      {Array.from({ length: 6 }).map(() => <span>Buon Appetito <i>✦</i> dal 1969 <i>✦</i></span>)}
+    </div>
+  </div>
+
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <a href="/" aria-label="Taverna — home"><Wordmark /></a>
+      <p>Italian-American kitchen &amp; bar. Family-run in downtown Saskatoon since {site.since}.</p>
+    </div>
+
+    <div>
+      <h2 class="footer__h">Find us</h2>
+      <p>
+        <a href={site.links.maps} target="_blank" rel="noopener">
+          {site.address.street}<br />
+          {site.address.city}, {site.address.region} {site.address.postal}
+        </a>
+      </p>
+      <p>
+        <a href={site.phoneHref}>{site.phone}</a><br />
+        <a href={`mailto:${site.email}`}>Email us</a>
+      </p>
+    </div>
+
+    <div>
+      <h2 class="footer__h">Hours</h2>
+      <dl class="footer__hours">
+        <div><dt>Sun – Thu</dt><dd>{h[0].open} – {h[0].close}</dd></div>
+        <div><dt>Fri – Sat</dt><dd>{h[5].open} – {h[5].close}</dd></div>
+      </dl>
+    </div>
+
+    <div>
+      <h2 class="footer__h">Explore</h2>
+      <ul class="footer__links">
+        {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+        <li><a href={site.links.order} target="_blank" rel="noopener">Order Takeout</a></li>
+        <li><a href={site.links.delivery} target="_blank" rel="noopener">Delivery</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrap footer__base">
+    <p>© {year} {site.fullName}</p>
+    <ul>
+      <li><a href={site.links.instagram} target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href={site.links.facebook} target="_blank" rel="noopener">Facebook</a></li>
+      <li><a href={site.links.tripadvisor} target="_blank" rel="noopener">Tripadvisor</a></li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--ink);
+    border-top: 1px solid var(--line);
+    font-size: 0.98rem;
+    color: var(--muted);
+  }
+  .footer a {
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer a:hover {
+    color: var(--brass-soft);
+  }
+
+  .footer__marquee {
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    padding-block: 1.6rem;
+  }
+  .footer__track {
+    display: flex;
+    width: max-content;
+    animation: slide 40s linear infinite;
+  }
+  .footer__track span {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--brass);
+    white-space: nowrap;
+    padding-right: 0.5em;
+  }
+  .footer__track i {
+    font-style: normal;
+    font-size: 0.4em;
+    vertical-align: middle;
+    color: var(--red);
+    -webkit-text-stroke: 0;
+    padding-inline: 0.8em;
+  }
+  @keyframes slide {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 3rem 2.5rem;
+    padding-block: clamp(3.5rem, 7vw, 6rem);
+  }
+  .footer__brand p {
+    margin-top: 1.5rem;
+    max-width: 22em;
+  }
+  .footer__brand a {
+    display: inline-block;
+  }
+  .footer__h {
+    margin-bottom: 1.1rem;
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+  .footer__hours {
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .footer__hours dt {
+    color: var(--cream);
+  }
+  .footer__hours dd {
+    margin: 0;
+  }
+  .footer__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.45rem;
+  }
+  .footer__base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    padding-block: 1.6rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .footer__base p {
+    margin: 0;
+  }
+  .footer__base ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media (max-width: 62rem) {
+    .footer__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .footer__brand {
+      grid-column: 1 / -1;
+    }
+    .footer {
+      padding-bottom: 3.5rem; /* room for the phone dock */
+    }
+  }
+  @media (max-width: 30rem) {
+    .footer__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

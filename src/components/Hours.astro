@@ -1,0 +1,64 @@
+---
+import { site } from '../data/site';
+// Monday-first for display
+const order = [1, 2, 3, 4, 5, 6, 0];
+---
+
+<dl class="hours" data-hours>
+  {
+    order.map((d) => (
+      <div data-day={d}>
+        <dt>{site.hours[d].day}</dt>
+        <dd>
+          {site.hours[d].open} – {site.hours[d].close}
+        </dd>
+      </div>
+    ))
+  }
+</dl>
+
+<script>
+  // highlight today, using Saskatoon's clock (no daylight saving)
+  const day = new Intl.DateTimeFormat('en-CA', { weekday: 'long', timeZone: 'America/Regina' }).format(new Date());
+  const idx = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(day);
+  document.querySelectorAll(`[data-hours] [data-day="${idx}"]`).forEach((el) => el.classList.add('is-today'));
+</script>
+
+<style>
+  .hours {
+    margin: 0;
+    display: grid;
+  }
+  .hours div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 0.7rem;
+    border-bottom: 1px dotted var(--line);
+  }
+  .hours dt {
+    font-family: var(--display);
+    font-size: 1.2rem;
+  }
+  .hours dd {
+    margin: 0;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .hours :global(.is-today) dt::after {
+    content: 'Today';
+    margin-left: 0.8em;
+    padding: 0.2em 0.7em;
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    background: var(--red);
+    color: var(--cream);
+  }
+  .hours :global(.is-today) dd {
+    color: inherit;
+  }
+</style>
